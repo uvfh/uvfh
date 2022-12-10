@@ -3582,71 +3582,10 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
         game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
     end)
     
-    FarmMethod = CFrame.new(0,1,2.5)
-    --
-    local RenUi = library:AddWindow("MID Hub | LP",Enum.KeyCode.RightControl)
-    --
-    local Main = RenUi:AddTab("Auto Farm","")
-    local Stats = RenUi:AddTab("Stats","")
-    local Combat = RenUi:AddTab("Combat","")
-    local Teleport = RenUi:AddTab("Teleport","")
-    local Shop = RenUi:AddTab("Shop","")
-    local Misc = RenUi:AddTab("Misc","")
-    --
-    Main:AddSeperator("Settings")
     
-    Time = Main:AddLabel("Server Time")
     
-    function UpdateTime()
-        local GameTime = math.floor(workspace.DistributedGameTime+0.5)
-        local Hour = math.floor(GameTime/(60^2))%24
-        local Minute = math.floor(GameTime/(60^1))%60
-        local Second = math.floor(GameTime/(60^0))%60
-        Time:Set("Hr(s) : "..Hour.." Min(s) : "..Minute.." Sec(s) : "..Second)
-    end
     
-    spawn(function()
-        while task.wait() do
-            pcall(function()
-                UpdateTime()
-            end)
-        end
-    end)
     
-    WeaponList = {}
-    
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do  
-        if v:IsA("Tool") then
-            table.insert(WeaponList, v.Name)
-        end
-    end
-    
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do  
-        if v:IsA("Tool") then
-            table.insert(WeaponList ,v.Name)
-        end
-    end
-    
-    local SelectP = Main:AddDropdown("Select Weapon",WeaponList,function(value)
-        _G.SelectWeapon = value
-    end)
-    
-    Main:AddButton("Refresh Weapon",function()
-        SelectP:Clear()
-        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do  
-            if v:IsA("Tool") then
-                SelectP:Add(v.Name)
-            end
-        end
-        
-        for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do  
-            if v:IsA("Tool") then
-                SelectP:Add(v.Name)
-            end
-        end
-    end)
-    
-    Main:AddSeperator("Main")
     
     Main:AddToggle("Auto Farm Level",_G.AutoFarm,function(value)
         _G.AutoFarm = value
