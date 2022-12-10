@@ -2081,7 +2081,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
     Toggle.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
     Toggle.Size = UDim2.new(0, 50, 0, 50)
     Toggle.Font = Enum.Font.Code
-    Toggle.Text = "RU"
+    Toggle.Text = "SSF"
     Toggle.TextColor3 = Color3.fromRGB(255, 0, 0)
     Toggle.TextScaled = true
     Toggle.MouseButton1Down:connect(function()
@@ -3083,40 +3083,92 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
                         Droptitle.Text =  text.." : "..tostring(t)
                         callback(t)
                         isdropping = not isdropping
-                        DropScroll.CanvasSize = UDim2.new(0,0,0,DropdownList.AbsoluteContentSize.Y + 10)
-                    end)
+                        Drop ):Play()
+3051
+                    isdropping = false
+3052
+                    for i, v in next, DropScroll:GetChildren() do
+3053
+                        if v:IsA("TextButton") then
+3054
+                            v:Destroy()
+3055
+                        end
+3056
+                    end
+3057
                 end
+3058
+                function drop:Add(t)
+3059
+                    local DropButton2 = Instance.new("TextButton")
+3060
+    
+3061
+                    DropButton2.Name = "DropButton2"
+3062
+                    DropButton2.Parent = DropScroll
+3063
+                    DropButton2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+3064
+                    DropButton2.BackgroundTransparency = 1.000
+3065
+                    DropButton2.Size = UDim2.new(0, 455, 0, 30)
+3066
+                    DropButton2.AutoButtonColor = false
+3067
+                    DropButton2.Font = Enum.Font.Gotham
+3068
+                    DropButton2.TextColor3 = Color3.fromRGB(225, 225, 225)
+3069
+                    DropButton2.TextSize = 11.000
+3070
+                    DropButton2.Text = tostring(t)
+3071
+    
+3072
+                    DropButton2.MouseButton1Click:Connect(function()
+3073
+                        TweenService:Create(
+3074
+                            Dropdown,
+3075
+                            TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+3076
+                            {Size = UDim2.new(0, 455, 0, 30)}
+3077
+                        ):Play()
+3078
+                        TweenService:Create(
+3079
+                            DropImage,
+3080
+                            TweenInfo.new(0.3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out),
+3081
+                            {Rotation = 0}
+3082
+                        ):Play()
+3083
+                        Droptitle.Text =  text.." : "..tostring(t)
+3084
+                        callback(t)
+3085
+                        isdropping = not isdropping
+3086
+                        DropScroll.CanvasSize = UDim2.new(0,0,0,DropdownList.AbsoluteContentSize.Y + 10)
+3087
+                    end)
+3088
+                end
+3089
                 return drop
+3090
             end
+3091
     
-            function main:AddSlider(text,min,max,set,callback)
-                set = (math.clamp(set,min,max))
-                if set > max then set = max end
-    
-                local Slider = Instance.new("Frame")
-                local UICorner = Instance.new("UICorner")
-                local SliderTitle = Instance.new("TextLabel")
-                local SliderValue = Instance.new("TextLabel")
-                local SliderButton = Instance.new("TextButton")
-                local Bar1 = Instance.new("Frame")
-                local Bar = Instance.new("Frame")
-                local UICorner_2 = Instance.new("UICorner")
-                local CircleBar = Instance.new("Frame")
-                local UICorner_3 = Instance.new("UICorner")
-                local UICorner_4 = Instance.new("UICorner")
-    
-                Slider.Name = "Slider"
-                Slider.Parent = ScrollTab
-                Slider.BackgroundColor3 = Color3.fromRGB(50, 48, 59)
-                Slider.Size = UDim2.new(0, 455, 0, 40)
-    
-                UICorner.CornerRadius = UDim.new(0, 5)
-                UICorner.Parent = Slider
-    
-                SliderTitle.Name = "SliderTitle"
-                SliderTitle.Parent = Slider
-                SliderTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                SliderTitle.BackgroundTransparency = 1.000
+
+
+ = 1.000
                 SliderTitle.Position = UDim2.new(0.0283286124, 0, 0, 0)
                 SliderTitle.Size = UDim2.new(0, 290, 0, 20)
                 SliderTitle.Font = Enum.Font.Gotham
@@ -3308,73 +3360,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
         return uitab
     end
     
-    local ScreenGui = Instance.new("ScreenGui")
-    local Toggle = Instance.new("TextButton")
-    
-    ScreenGui.Name = "ScreenGui"
-    ScreenGui.Parent = game.CoreGui
-    
-    Toggle.Name = "Toggle"
-    Toggle.Parent = ScreenGui
-    Toggle.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-    Toggle.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
-    Toggle.Size = UDim2.new(0, 50, 0, 50)
-    Toggle.Font = Enum.Font.Code
-    Toggle.Text = "M"
-    Toggle.TextColor3 = Color3.fromRGB(255, 0, 0)
-    Toggle.TextScaled = true
-    Toggle.MouseButton1Down:connect(function()
-        game:GetService("VirtualInputManager"):SendKeyEvent(true,305,false,game)
-        game:GetService("VirtualInputManager"):SendKeyEvent(false,305,false,game)
-    end)
-    --
-    function CheckQuest()
-        local MyLevel = game:GetService("Players").LocalPlayer.PlayerStats.Level.Value
-        if MyLevel >= 1 and MyLevel < 15 then
-            Mon = "Bandit [Lv:5]"
-            NameQuest = "Bandit"
-        elseif MyLevel >= 15 and MyLevel < 30 then 
-            Mon = "Pirates [Lv:15]"
-            NameQuest = "Pirates"
-        elseif MyLevel >= 30 and MyLevel < 60 then
-            Mon = "BagyPirates [Lv:30]"
-            NameQuest = "BagyPirates"
-        elseif MyLevel >= 60 and MyLevel < 150 then
-            Mon = "Clown Pirate [Lv:60]"
-            NameQuest = "Clown Pirate"
-        elseif MyLevel >= 150 and MyLevel < 200 then
-            Mon = "Revolutionary Troop [Lv:150]"
-            NameQuest = "Revolutionary Troop"
-        elseif MyLevel >= 200 and MyLevel < 500 then
-            Mon = "Marines [Lv:200]"
-            NameQuest = "Marines"
-        elseif MyLevel >= 500 and MyLevel < 600 then
-           Mon = "Marines [Lv:200]"
-            NameQuest = "Marines"
-        elseif MyLevel >= 600 and MyLevel < 700 then
-            Mon = "Fishman [Lv:600]"
-            NameQuest = "Fishman"
-        elseif MyLevel >= 700 and MyLevel < 850 then
-            Mon = "WinterBandit [Lv:700]"
-            NameQuest = "WinterBandit"
-        elseif MyLevel >= 850 and MyLevel < 950 then
-            Mon = "Sky Bandit [Lv:850]"
-            NameQuest = "Sky Bandit"
-        elseif MyLevel >= 950 and MyLevel < 1150 then
-            Mon = "Sky Bandit [Lv:850]"
-            NameQuest = "Sky Bandit"
-        elseif MyLevel >= 1150 and MyLevel < 1200 then
-            Mon = "Monkey [Lv:1150]"
-            NameQuest = "Monkey"
-        elseif MyLevel >= 1200 and MyLevel < 1400 then 
-            Mon = "Monkey [Lv:1150]"
-            NameQuest = "Monkey"
-        elseif MyLevel >= 1400 then 
-            Mon = "Skeleton [Lv:1400]"
-            NameQuest = "Skeleton"
-        end
-    end
-    
+
     function fly()
         local mouse=game.Players.LocalPlayer:GetMouse''
         localplayer=game.Players.LocalPlayer
