@@ -3573,28 +3573,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
     
     
     
-    Main:AddToggle("Auto Farm Level",_G.AutoFarm,function(value)
-        _G.AutoFarm = value
-    end)
     
-    spawn(function()
-        while wait() do
-            if _G.AutoFarm then
-                pcall(function()
-                    CheckQuest()
-                    if game:GetService("Players").LocalPlayer.PlayerGui.QuestGui.Enabled then
-                        for i,v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
-                            if game:GetService("Workspace").Lives:FindFirstChild(Mon) then
-                                if v.Name == Mon then
-                                    if v.Torso.Transparency ~= 1 then    
-                                        if string.find(game:GetService("Players").LocalPlayer.Quest.Doing.Value, NameQuest) then
-                                            repeat task.wait()
-                                                EquipWeapon(_G.SelectWeapon)
-                                                AutoHaki()
-                                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                                                game:GetService'VirtualUser':CaptureController()
-                                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672),game:GetService("Workspace").Camera.CFrame)
-                                            until v.Torso.Transparency == 1 or not _G.AutoFarm or not game:GetService("Players").LocalPlayer.PlayerGui.QuestGui.Enabled
                                         else
                                             game:GetService("Players").LocalPlayer.PlayerGui.QuestGui.Enabled = false
                                         end
@@ -3754,54 +3733,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
         end
     end)
     
-    Main:AddSeperator("Flame Emperor")
     
-    Main:AddToggle("Auto Flame Emperor",_G.AutoFlameEmperor,function(value)
-        _G.AutoFlameEmperor = value
-    end)
-    
-    Main:AddToggle("Auto Flame Emperor Hop",_G.AutoFlameEmperor_Hop,function(value)
-        _G.AutoFlameEmperor_Hop = value
-    end)
-    
-    spawn(function()
-        while wait() do
-            if _G.AutoFlameEmperor then
-                pcall(function()
-                    for i,v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
-                        if game:GetService("Workspace").Lives:FindFirstChild("Flame Emperor [Boss]") then
-                            if v.Name == "Flame Emperor [Boss]" then
-                                repeat task.wait()
-                                    EquipWeapon(_G.SelectWeapon)
-                                    AutoHaki()
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                                    game:GetService'VirtualUser':CaptureController()
-                                    game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672),game:GetService("Workspace").Camera.CFrame)
-                                until v.Humanoid.Health <= 0 or not game:GetService("Workspace").Lives:FindFirstChild("Flame Emperor [Boss]") or not _G.AutoFlameEmperor or not v.Parent
-                            end
-                        else
-                            if _G.AutoFlameEmperor_Hop then
-                                Hop()
-                            end
-                        end
-                    end
-                end)
-            end
-        end
-    end)
-    
-    Main:AddSeperator("God Of Lighting")
-    
-    Main:AddToggle("Auto God Of Lighting",_G.AutoGodOfLighting,function(value)
-        _G.AutoGodOfLighting = value
-    end)
-    
-    Main:AddToggle("Auto God Of Lighting Hop",_G.AutoGodOfLighting_Hop,function(value)
-        _G.AutoGodOfLighting_Hop = value
-    end)
-    
-    spawn(function()
-        while wait() do
             if _G.AutoGodOfLighting then
                 pcall(function()
                     for i,v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
@@ -3893,37 +3825,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
         end
     end)
     
-    Combat:AddSeperator("Menu")
     
-    Combat:AddToggle("Spectate Player",false,function(value)
-        Spectate = value
-        local plr1 = game.Players.LocalPlayer.Character.Humanoid
-        local plr2 = game.Players:FindFirstChild(_G.SelectPly)
-        repeat task.wait()
-            game.Workspace.Camera.CameraSubject = plr2.Character.Humanoid
-        until Spectate == false 
-        game.Workspace.Camera.CameraSubject = plr1
-    end)
-    
-    Combat:AddButton("Teleport",function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.SelectPly].Character.HumanoidRootPart.CFrame
-    end)
-    
-    Combat:AddSeperator("Farm")
-    
-    Weaponply = {}
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            table.insert(Weaponply,v.Name)
-        end
-    end
-    
-    local SelectWeaponply = Combat:AddDropdown("Select Weapon",Weaponply,function(value)
-        _G.SelectWeaponKill = value
-    end)
-    
-    Combat:AddButton("Refresh Weapon",function()
-        SelectWeaponply:Clear()
         Weaponply = {}
         for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
             if v:IsA("Tool") then
