@@ -2093,10 +2093,6 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
     --------------------------------------------------------------------
     local Main = RenUi:AddTab("ออโต้ฟาร์ม","")
     local Stats = RenUi:AddTab("สถิติ","")
-    local Dungeon = RenUi:AddTab("ดัน","")
-    local DevilFruit = RenUi:AddTab("ผลไม้ปีศาจ","")
-    local Shop = RenUi:AddTab("ร้านค้า","")
-    local Misc = RenUi:AddTab("อื่น ๆ","")
     --------------------------------------------------------------------
     Main:AddSeperator("การตั้งค่า")
     
@@ -2293,11 +2289,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
         end)
     end
     
-    if World2 then
-        Main:AddToggle("ออโต้ทะเลท่ี่3",_G.AutoThirdSea,function(value)
-            _G.AutoThirdSea = value
-            StopTween(_G.AutoThirdSea)
-        end)
+    
     
         spawn(function()
             while wait() do
@@ -2342,11 +2334,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
         end)
     end
     
-    if World2 then
-        Main:AddToggle("Auto Farm Factory",_G.AutoFactory,function(value)
-            _G.AutoFactory = value
-            StopTween(_G.AutoFactory)
-        end)
+   
     
         spawn(function()
             while wait() do
@@ -2583,62 +2571,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
                                 repeat task.wait()
                                     topos(CFrame.new(-10371.4717, 330.764496, -10131.4199))
                                 until not _G.AutoElectricClaw or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrame.new(-10371.4717, 330.764496, -10131.4199).Position).Magnitude <= 10
-                                wait(1)
-                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectricClaw")
-                            elseif _G.AutoFarm == true then
-                                _G.AutoFarm = false
-                                wait(1)
-                                repeat task.wait()
-                                    topos(CFrame.new(-10371.4717, 330.764496, -10131.4199))
-                                until not _G.AutoElectricClaw or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrame.new(-10371.4717, 330.764496, -10131.4199).Position).Magnitude <= 10
-                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectricClaw","Start")
-                                wait(2)
-                                repeat task.wait()
-                                    topos(CFrame.new(-12550.532226563, 336.22631835938, -7510.4233398438))
-                                until not _G.AutoElectricClaw or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrame.new(-12550.532226563, 336.22631835938, -7510.4233398438).Position).Magnitude <= 10
-                                wait(1)
-                                repeat task.wait()
-                                    topos(CFrame.new(-10371.4717, 330.764496, -10131.4199))
-                                until not _G.AutoElectricClaw or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrame.new(-10371.4717, 330.764496, -10131.4199).Position).Magnitude <= 10
-                                wait(1)
-                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectricClaw")
-                                _G.SelectWeapon = "Electric Claw"
-                                wait(.1)
-                                _G.AutoFarm = true
-                            end
-                        end
-                    end
-                end
-            end
-        end)
-    end)
-    
-    Main:AddToggle("กรงเล็บมังกรอัตโนมัติ",_G.AutoDragonTalon,function(value)
-        _G.AutoDragonTalon = value
-    end)
-    
-    spawn(function()
-        while wait() do
-            if _G.AutoDragonTalon then
-                if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Claw") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon Claw") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Talon") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon Talon") then
-                    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Claw") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Claw").Level.Value >= 400 then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon")
-                        _G.SelectWeapon = "Dragon Talon"
-                    end  
-                    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon Claw") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon Claw").Level.Value >= 400 then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon")
-                        _G.SelectWeapon = "Dragon Talon"
-                    end  
-                    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Claw") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Claw").Level.Value <= 399 then
-                        _G.SelectWeapon = "Dragon Claw"
-                    end 
-                else 
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","DragonClaw","2")
-                end
-            end
-        end
-    end)
-    
+
     Main:AddSeperator("ความชำนาญ")
     
     Main:AddToggle("Auto Farm BF เชี่ยวชาญ",_G.AutoFarmFruitMastery,function(value)
@@ -2871,18 +2804,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
     spawn(function()
         game:GetService("RunService").RenderStepped:Connect(function()
             pcall(function()
-                if UseSkill then
-                    for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
-                        if v.Name == "NotificationTemplate" then
-                            if string.find(v.Text,"Skill locked!") then
-                                v:Destroy()
-                            end
-                        end
-                    end
-                end
-            end)
-        end)
-    end)
+
     
     spawn(function()
         pcall(function()
@@ -4889,75 +4811,7 @@ if game.PlaceId == 2753915549 or game.PlaceId == 4442272183 or game.PlaceId == 7
                                 plyselecthunthelpold = v.Humanoid.Health
                                 repeat task.wait()
                                     EquipWeapon(SelectWeaponGun)
-                                    NameTarget = v.Name
-                                    if tostring(game.Players.LocalPlayer.Team) == "Pirates" then
-                                        topos(v.HumanoidRootPart.CFrame * CFrame.new(0,60,-20))
-                                    elseif tostring(game.Players.LocalPlayer.Team) == "Marines" then
-                                        if game.Players[NameTarget].Team ~= game.Players.LocalPlayer.Team then
-                                            topos(v.HumanoidRootPart.CFrame * CFrame.new(0,60,-20))
-                                        end
-                                    end
-                                    spawn(function()
-                                        if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 150 then
-                                            StartCheckTarget = true
-                                        end
-                                    end)
-                                    v.HumanoidRootPart.CanCollide = false
-                                    spawn(function()
-                                        pcall(function()
-                                            local args = {
-                                                [1] = v.HumanoidRootPart.Position,
-                                                [2] = v.HumanoidRootPart
-                                            }
-                                            game:GetService("Players").LocalPlayer.Character[SelectWeaponGun].RemoteFunctionShoot:InvokeServer(unpack(args))
-                                        end)
-                                    end)
-                                    TargetSelectHunt = v.Humanoid
-                                until _G.AutoFarmBounty == false or v.Humanoid.Health == 0 or not v:FindFirstChild("HumanoidRootPart") or not v:FindFirstChild("Humanoid") or not v.Parent or NextplySelect == true
-                                NextplySelect = false
-                                StartCheckTarget = false
-                            end
-                        end
-                    end
-                end
-            end)
-        end
-    end)
-    
-    spawn(function()
-        pcall(function()
-            while task.wait() do
-                if _G.AutoFarmBounty then
-                    game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Visible = false
-                    game:GetService("Players").LocalPlayer.PlayerGui.Main.SafeZone.Visible = false
-                end
-            end
-        end)
-    end)
-    
-    spawn(function()
-        pcall(function()
-            while wait() do
-                if _G.AutoFarmBounty then
-                    if TargetSelectHunt ~= nil then
-                        if StartCheckTarget then
-                            wait(6.5)
-                            if TargetSelectHunt.Health == TargetSelectHunt.MaxHealth or TargetSelectHunt.Health >= plyselecthunthelpold then
-                                NextplySelect = true
-                                TargetSelectHunt = nil
-                            end
-                        end
-                    end
-                end
-            end
-        end)
-    end)
-    
-    spawn(function()
-        pcall(function()
-            while wait(.1) do
-                if _G.AutoFarmBounty then
-                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.PvpDisabled.Visible == true then
+                                    NameTarget = v.Namegame:GetService("Players").LocalPlayer.PlayerGui.Main.PvpDisabled.Visible == true then
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EnablePvp")
                     end
                 end
