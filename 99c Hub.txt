@@ -33,7 +33,7 @@ btns:Button("รีเฟรชอาวุธ",function()
         end
     end)
 btns:Toggle("ตั้งจุดเกิดอัตโนมัติ",true,function(value)
-        _G.AutoSetSpawn = value
+        _G.AutoFarm = t
     end)
     
     spawn(function()
